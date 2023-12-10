@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Event Calendar</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style type="text/css">
+
+/* style columns differently */
+		.listing span:nth-child(6n+1) { /* number of columns +1 */
+			text-transform: uppercase;
+			display: inline-block;
+			width: 120px;
+			padding: 10px;
+			vertical-align: middle;
+		}
+		.listing span:nth-child(6n+2) { /* number of columns +2 */
+			font-size: 150%; 
+			font-variant: normal;
+			font-weight: bold; 
+			text-transform: uppercase;
+			color: #272727;
+			display: inline-block;
+			width: 225px;
+			padding: 10px;
+			vertical-align: middle;
+		}
+		.listing span:nth-child(6n+3) { /* number of columns +3 */
+			display: inline-block;
+			width: 225px;
+			padding: 10px;
+			vertical-align: middle;
+		}
+		.listing span:nth-child(6n+4) { /* number of columns +4 */
+			display: inline-block;
+			text-transform: uppercase;
+			width: 200px;
+			padding: 10px;
+			vertical-align: middle;
+		}
+		.listing span:nth-child(6n+5) { /* number of columns +5 */
+			display: inline-block;
+			padding: 10px;
+			vertical-align: middle;
+		}
+		.listing span:nth-child(6n+6) { /* number of columns +6 = horizontal line */
+			display: block;
+			border-bottom: 1px solid;
+			width: 100%;
+		}
+		.listing span {
+			line-height: 28px;
+		}
+/* different style for smaller screens */
+		@media screen and (max-width: 950px) {
+		.item-link {
+			display: none;
+		}
+		.listing span:nth-child(6n+1) {
+			text-transform: uppercase;
+			display: block;
+			width: 100%;
+		}
+		.listing span:nth-child(6n+2) {
+			font-size: 150%; 
+			font-variant: normal;
+			font-weight: bold; 
+			text-transform: uppercase;
+			color: #272727;
+			display: block;
+			width: 100%;
+		}
+		.listing span:nth-child(6n+3) {
+			display: inline;
+		}
+		.listing span:nth-child(6n+4) {
+			display: inline;
+			text-transform: uppercase;
+		}
+		.listing span:nth-child(6n+5) {
+			display: inline;
+		}
+		.listing span:nth-child(6n+6) {
+			display: block;
+			border-bottom: 1px solid;
+			width: 100%;
+		}
+		.listing span {
+			line-height: 12px;
+		}
+		.listing {
+			text-align: center;
+		}
+		}
+/* different style for even smaller screens */
+		@media screen and (max-width: 550px) {
+		.listing span:nth-child(6n+3) {
+			display: block;
+			width: 100%;
+		}
+		.listing span:nth-child(6n+4) {
+			display: block;
+			width: 100%;
+		}
+		.listing span:nth-child(6n+5) {
+			display: block;
+			width: 100%;
+		}
+		}
+</style>
+</head>
+<body class="lang-de ">
+<h1>Event Calendar</h1>
+<div class="listing">
+<?php
+// (A) OPEN CSV FILE
+$stream = fopen("https://docs.google.com/spreadsheets/d/e/2PACX-1vTnGDarb4uXgdOG0WfQ2BS0-FhwOV1Yc-fS_ThTqIwx6XF2zrhvE5Dr_Kpy6X5ptfKpgdo0FcV-Srx5/pub?gid=632685044&single=true&output=csv", "r");
+// (B) EXTRACT ROWS & COLS
+fgetcsv($stream, 1000, ",");
+while (($row = fgetcsv($stream, 1000, ",")) !== false) 
+{foreach ($row as $col) {echo "<span>" . $col . "</span>"; }}
+// (C) CLOSE CSV FILE
+fclose($stream);
+?>
+</div> 
+</body>
+</html>
